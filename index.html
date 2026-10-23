@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aplikasi pencatatan sederhana untuk submission Belajar Fundamental Front-End Web Development." />
+    <title>Ruang Catatan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="src/styles/main.css" />
+  </head>
+  <body>
+    <app-bar app-name="Ruang Catatan" tagline="Tulis. Simpan. Ingat."></app-bar>
+    <main class="page-content">
+      <section class="intro" aria-labelledby="intro-title">
+        <p class="eyebrow">Ruang untuk ide Anda</p>
+        <h1 id="intro-title">Apa yang ingin Anda catat hari ini?</h1>
+        <p>Gunakan formulir berikut untuk menyimpan pemikiran kecil maupun rencana besar.</p>
+      </section>
+      <note-form></note-form>
+      <section class="notes-section" aria-labelledby="notes-heading">
+        <div class="section-heading">
+          <div><p class="eyebrow">Koleksi catatan</p><h2 id="notes-heading">Catatan terbaru</h2></div>
+          <span id="notes-count" class="notes-count">0 catatan</span>
+        </div>
+        <!-- JavaScript akan merender note-item dari data dummy ke dalam grid ini. -->
+        <div id="notes-list" class="notes-grid" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer class="site-footer">Dibuat untuk submission Notes App.</footer>
+    <script type="module" src="src/scripts/main.js"></script>
+  </body>
+</html>
