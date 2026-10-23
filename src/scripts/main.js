@@ -1,4 +1,5 @@
-import notes from '../data/notes.js';
+import notesData from '../data/notes.js';
+import customEvents from './custom-events.js';
 import './components/app-bar.js';
 import './components/note-form.js';
 import './components/note-item.js';
@@ -17,5 +18,14 @@ function renderNotes(noteData) {
 }
 
 // TODO: Setelah data dummy dimasukkan, fungsi ini akan menampilkan seluruh catatan.
-renderNotes(notes);
+renderNotes(notesData);
+document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, () => {
+  renderNotes(notesData);
+  const submissionAlert = document.createElement('p');
+  submissionAlert.style.color = 'green';
+  submissionAlert.innerText = 'Note berhasil ditambahkan!';
+  const noteForm = document.querySelector('form#note-form');
+  noteForm.append(submissionAlert);
+
+})
 // TODO: Dengarkan CustomEvent dari <note-form>, lalu tambahkan catatan baru ke state.
