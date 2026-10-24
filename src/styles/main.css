@@ -23,6 +23,13 @@ body {
   padding: 1.25rem max(1.5rem, calc((100% - 1120px) / 2));
   border-bottom: 1px solid var(--line);
   background: rgba(255, 252, 245, 0.9);
+
+  position: sticky;
+  top: 0;
+
+
+  display: flex;
+  justify-content: space-between;
 }
 .brand {
   display: inline-flex;
@@ -47,6 +54,13 @@ body {
 .brand small {
   color: var(--muted);
   font-size: 0.72rem;
+}
+div#nav-menus {
+  display: flex;
+  gap: 8px;
+}
+div#nav-menus a {
+  text-decoration: none;
 }
 .page-content {
   width: min(1120px, calc(100% - 3rem));
@@ -83,20 +97,23 @@ h1 {
   font-size: 1.08rem;
 }
 .form-card {
+  border: 1px solid black;
   display: grid;
-  grid-template-columns: minmax(12rem, 0.7fr) minmax(18rem, 1.3fr);
-  gap: 2rem;
+  grid-template-rows: minmax(12rem, 0.7fr) minmax(18rem, 1.3fr);
+  /* gap: 2rem; */
   padding: clamp(1.5rem, 4vw, 3rem);
   border-radius: 1.5rem;
   background: var(--lavender);
 }
 .form-card h2 {
+  border: 1px solid blue;
   margin: 0;
   font-size: 2rem;
 }
 form {
+  border: 1px solid red;
   display: grid;
-  gap: 1.1rem;
+  gap: 1rem;
 }
 .field-group {
   display: grid;
