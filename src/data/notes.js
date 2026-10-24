@@ -1,6 +1,3 @@
-/** Tempelkan data dummy dari instruksi submission di sini.
- * Contoh: { id: 'notes-1', title: 'Judul', body: 'Isi', createdAt: '2022-02-22T22:22:22.222Z', archived: false }
- */
 const notesData = [
   {
     id: "notes-jT-jjsyz61J8XKiI",
@@ -108,7 +105,5 @@ const notesData = [
     archived: false,
   },
 ];
-
-// console.log(notesData);
 
 export default notesData;
