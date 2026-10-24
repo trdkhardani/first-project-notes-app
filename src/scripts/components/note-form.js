@@ -5,12 +5,12 @@ class NoteForm extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <section class="form-card" aria-labelledby="form-title">
-        <div><h2 id="form-title">Tambah Catatan Baru</h2></div>
+        <div><h2 id="form-title">Add New Note</h2></div>
         <form id="note-form">
-          <div class="field-group"><label for="note-title">Judul</label><input id="note-title" name="title" type="text" placeholder="Contoh: Rencana akhir pekan" required minlength="3" /><small class="field-message" id="title-message"></small></div>
-          <div class="field-group"><label for="note-body">Isi catatan</label><textarea id="note-body" name="body" rows="5" placeholder="Tulis catatan Anda di sini..." required minlength="10"></textarea><small class="field-message" id="body-message"></small></div>
-          <button type="submit">Simpan catatan <span aria-hidden="true">→</span></button>
-          <p id="submission-alert" style="color: green;" hidden>Note berhasil ditambahkan!</p>
+          <div class="field-group"><label for="note-title">Title</label><input id="note-title" name="title" type="text" placeholder="Your title here..." required minlength="3" /><small class="field-message" id="title-message"></small></div>
+          <div class="field-group"><label for="note-body">Note</label><textarea id="note-body" name="body" rows="5" placeholder="Your note here..." required minlength="10"></textarea><small class="field-message" id="body-message"></small></div>
+          <button type="submit">Save note <span aria-hidden="true">→</span></button>
+          <p id="submission-alert" style="color: green;" hidden>Note successfully added!</p>
         </form>
       </section>`;
 
@@ -30,11 +30,11 @@ class NoteForm extends HTMLElement {
         document.getElementById("title-message");
       if (!isValid && validationMsg) {
         if (event.target.validity.valueMissing)
-          noteTitleValidationMsgField.innerText = "Judul catatan harus diisi.";
+          noteTitleValidationMsgField.innerText = "Title must be filled.";
 
         if (event.target.validity.tooShort)
           noteTitleValidationMsgField.innerText =
-            "Judul catatan minimal 3 karakter.";
+            "Title is 3 characters minimum.";
       } else {
         noteTitleValidationMsgField.innerText = "";
       }
@@ -48,11 +48,11 @@ class NoteForm extends HTMLElement {
         document.getElementById("body-message");
       if (!isValid && validationMsg) {
         if (event.target.validity.valueMissing)
-          noteBodyValidationMsgField.innerText = "Isi catatan harus diisi.";
+          noteBodyValidationMsgField.innerText = "Note must be filled.";
 
         if (event.target.validity.tooShort)
           noteBodyValidationMsgField.innerText =
-            "Isi catatan minimal 10 karakter.";
+            "Note is 10 characters minimum.";
       } else {
         noteBodyValidationMsgField.innerText = "";
       }

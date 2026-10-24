@@ -3,27 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Aplikasi pencatatan sederhana untuk submission Belajar Fundamental Front-End Web Development." />
-    <title>Ruang Catatan</title>
+    <meta name="description"/>
+    <title>Notes App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="src/styles/main.css" />
   </head>
   <body>
-    <app-bar app-name="Ruang Catatan" tagline="Tulis. Simpan. Ingat." nav-menus="Tambah Catatan,Daftar Catatan,Profil"></app-bar>
+    <app-bar nav-menus="Add New Note,Note List,Profile"></app-bar>
     <main class="page-content">
       <note-form></note-form>
       <section class="notes-section" aria-labelledby="notes-heading">
         <div class="section-heading">
-          <div><p class="eyebrow">Koleksi catatan</p><h2 id="notes-heading">Catatan terbaru</h2></div>
-          <span id="notes-count" class="notes-count">0 catatan</span>
+          <div>
+            <h2 id="notes-heading">Notes</h2>
+          </div>
         </div>
         <!-- JavaScript akan merender note-item dari data dummy ke dalam grid ini. -->
         <div id="notes-list" class="notes-grid" aria-live="polite"></div>
       </section>
     </main>
-    <footer class="site-footer">Notes App by <a href="https://www.dicoding.com/users/tridiktyahp" target="_blank" rel="noopener noreferrer">Tridiktya Hardani Putra</a>.</footer>
+    <footer class="site-footer">
+      Notes App by
+      <a
+        href="https://www.dicoding.com/users/tridiktyahp"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Tridiktya Hardani Putra</a
+      >.
+    </footer>
     <script type="module" src="src/scripts/main.js"></script>
   </body>
 </html>
