@@ -1,92 +1,118 @@
 :root {
-  --ink: #252339;
-  --muted: #67647b;
-  --paper: #fffcf5;
-  --surface: #fff;
-  --line: #e6e0d5;
-  --accent: #e66c50;
-  --accent-dark: #ba4e39;
-  --lavender: #eeebff;
-  --shadow: 0 18px 45px rgba(45, 37, 67, 0.09);
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+
+  --ink: #f1f3ff;
+  --muted: #a0a8ca;
+  --paper: #090b1a;
+  --surface: #141832;
+  --line: #252b49;
+
+  --accent: #8b5cf6;
+  --accent-dark: #a78bfa;
+  --lavender: #171d3b;
+  --success: #5de4ff;
+
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
 }
+
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   color: var(--ink);
   background: var(--paper);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-body);
   line-height: 1.55;
 }
+
 .app-bar {
   padding: 1.25rem max(1.5rem, calc((100% - 1120px) / 2));
-  border-bottom: 1px solid var(--line);
-  background: rgba(255, 252, 245, 0.9);
-
   position: sticky;
   top: 0;
+  z-index: 100;
 
   display: flex;
-  justify-content: space-between;
-}
-.brand {
-  display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  color: inherit;
+  justify-content: space-between;
+  gap: 1.5rem;
+
+  background: rgba(9, 11, 26, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  color: var(--ink);
   text-decoration: none;
 }
-.brand-mark {
-  display: grid;
-  width: 2.4rem;
-  aspect-ratio: 1;
-  place-items: center;
-  border-radius: 0.75rem;
-  color: #fff;
-  background: var(--accent);
+
+.brand strong {
+  color: var(--ink);
+  letter-spacing: 0.04em;
 }
-.brand strong,
-.brand small {
-  display: block;
-}
-.brand small {
-  color: var(--muted);
-  font-size: 0.72rem;
-}
-div#nav-menus {
+
+#nav-menus {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 0.5rem;
 }
-div#nav-menus a {
+
+#nav-menus a {
+  padding: 0.55rem 0.85rem;
+  border: 1px solid transparent;
+  border-radius: 0.6rem;
+
+  color: var(--muted);
   text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
+
+#nav-menus a:hover,
+#nav-menus a:focus-visible {
+  color: var(--success);
+  background: var(--lavender);
+  border-color: var(--line);
+  outline: none;
+}
+
+#nav-menus a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .page-content {
   width: min(1120px, calc(100% - 3rem));
   margin: 0 auto;
   padding: 4.5rem 0;
 }
-.eyebrow {
-  margin: 0 0 0.35rem;
-  color: var(--accent-dark);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
+
 h1,
 h2,
 h3 {
   line-height: 1.15;
 }
+
 h1,
 h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-heading);
 }
+
 h1 {
   margin: 0;
   font-size: clamp(2.4rem, 5vw, 4.5rem);
 }
+
+#note-form {
+  scroll-margin-top: 160px;
+}
+
 .form-card {
   display: flex;
   flex-flow: column;
@@ -95,43 +121,57 @@ h1 {
   border-radius: 1.5rem;
   background: var(--lavender);
 }
+
 .form-card h2 {
   margin: 0;
   font-size: 2rem;
 }
+
 form {
   display: flex;
   flex-flow: column;
   gap: 1rem;
 }
+
 .field-group {
   display: flex;
   flex-flow: column;
   gap: 0.4rem;
 }
+
 label {
   font-size: 0.9rem;
   font-weight: 700;
 }
+
 input,
 textarea {
   width: 100%;
   padding: 0.8rem 0.9rem;
-  border: 1px solid #cbc5df;
+  border: 1px solid var(--line);
   border-radius: 0.65rem;
-  color: inherit;
-  background: #fff;
+  color: var(--ink);
+  background: var(--surface);
   font: inherit;
 }
+
 input:focus,
 textarea:focus {
-  outline: 3px solid rgba(230, 108, 80, 0.25);
+  outline: 3px solid rgba(139, 92, 246, 0.3);
   border-color: var(--accent);
 }
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.75;
+}
+
 .field-message {
   min-height: 1.25rem;
   color: var(--accent-dark);
 }
+
 button {
   justify-self: start;
   padding: 0.8rem 1.1rem;
@@ -143,12 +183,20 @@ button {
   font-weight: 700;
   cursor: pointer;
 }
+
 button:hover {
   background: var(--accent-dark);
+  transition: all ease-in-out 0.4s;
 }
+
+#notes-list {
+  scroll-margin-top: 160px;
+}
+
 .notes-section {
   margin-top: 5rem;
 }
+
 .section-heading {
   display: flex;
   align-items: end;
@@ -156,21 +204,26 @@ button:hover {
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
+
 .section-heading h2 {
   margin: 0;
   font-size: 2.1rem;
 }
+
 .notes-count {
   color: var(--muted);
-} /* Kriteria wajib: CSS Grid untuk daftar catatan. */
+}
+
 .notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.25rem;
 }
+
 note-item {
   min-width: 0;
 }
+
 .note-card {
   height: 100%;
   padding: 1.35rem;
@@ -179,9 +232,11 @@ note-item {
   background: var(--surface);
   box-shadow: var(--shadow);
 }
+
 .note-card.is-archived {
   opacity: 0.7;
 }
+
 .note-card__meta {
   display: flex;
   justify-content: space-between;
@@ -189,19 +244,23 @@ note-item {
   color: var(--muted);
   font-size: 0.76rem;
 }
+
 .note-card__meta span {
   color: var(--accent-dark);
   font-weight: 700;
 }
+
 .note-card h3 {
   margin: 1.5rem 0 0.65rem;
   font-size: 1.25rem;
 }
+
 .note-card p {
   margin: 0;
   color: var(--muted);
   white-space: pre-line;
 }
+
 .site-footer {
   padding: 2rem 1.5rem;
   border-top: 1px solid var(--line);
@@ -209,7 +268,8 @@ note-item {
   text-align: center;
   font-size: 0.88rem;
 }
-@media (max-width: 680px) {
+
+@media (max-width: 768px) {
   .page-content {
     width: min(100% - 2rem, 1120px);
     padding: 3rem 0;

@@ -16,10 +16,10 @@ function renderNotes(noteData) {
 }
 
 renderNotes(notesData);
+
 document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, () => {
   renderNotes(notesData);
 
   const submissionAlert = document.getElementById("submission-alert");
   submissionAlert.hidden = false
-
-})
+});

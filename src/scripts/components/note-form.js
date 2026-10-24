@@ -2,7 +2,18 @@ import notesData from "../../data/notes.js";
 import customEvents from "../custom-events.js";
 
 class NoteForm extends HTMLElement {
+  constructor() {
+    super();
+  }
+
   connectedCallback() {
+    this.render();
+    this._onValidation();
+    this._onSubmission();
+    this.addEventListener("submit", (event) => this._onFormSubmit(event));
+  }
+
+  render() {
     this.innerHTML = `
       <section class="form-card" aria-labelledby="form-title">
         <div><h2 id="form-title">Add New Note</h2></div>
@@ -10,13 +21,9 @@ class NoteForm extends HTMLElement {
           <div class="field-group"><label for="note-title">Title</label><input id="note-title" name="title" type="text" placeholder="Your title here..." required minlength="3" /><small class="field-message" id="title-message"></small></div>
           <div class="field-group"><label for="note-body">Note</label><textarea id="note-body" name="body" rows="5" placeholder="Your note here..." required minlength="10"></textarea><small class="field-message" id="body-message"></small></div>
           <button type="submit">Save note <span aria-hidden="true">→</span></button>
-          <p id="submission-alert" style="color: green;" hidden>Note successfully added!</p>
+          <p id="submission-alert" style="color: var(--success);" hidden>Note successfully added!</p>
         </form>
       </section>`;
-
-    this._onValidation();
-    this._onSubmission();
-    this.addEventListener("submit", (event) => this._onFormSubmit(event));
   }
 
   _onValidation() {
