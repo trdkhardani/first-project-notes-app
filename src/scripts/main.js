@@ -21,11 +21,15 @@ function renderNotes(noteData) {
 renderNotes(notesData);
 document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, () => {
   renderNotes(notesData);
-  const submissionAlert = document.createElement('p');
-  submissionAlert.style.color = 'green';
-  submissionAlert.innerText = 'Note berhasil ditambahkan!';
-  const noteForm = document.querySelector('form#note-form');
-  noteForm.append(submissionAlert);
+  // const submissionAlert = document.createElement('p');
+  // submissionAlert.id = "submission-alert"
+  // submissionAlert.style.color = 'green';
+  // submissionAlert.innerText = 'Note berhasil ditambahkan!';
+  // const noteForm = document.querySelector('form#note-form');
+  // noteForm.append(submissionAlert);
+
+  const submissionAlert = document.getElementById("submission-alert");
+  submissionAlert.hidden = false
 
 })
 // TODO: Dengarkan CustomEvent dari <note-form>, lalu tambahkan catatan baru ke state.
