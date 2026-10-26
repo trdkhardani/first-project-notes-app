@@ -42,13 +42,13 @@ document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, async () => {
   const fetchNotesApi = await getActiveNotes();
   renderNotes(fetchNotesApi.data);
 
-  const submissionAlert = document.getElementById("submission-alert");
-  submissionAlert.hidden = false
+  // toastr.clear();
+  toastr.success('Note saved successfully!');
 });
 
 document.addEventListener(customEvents.NOTE_DELETE_EVENT, async () => {
   const fetchNotesApi = await getActiveNotes();
   renderNotes(fetchNotesApi.data);
-  toastr.clear();
+  // toastr.clear();
   toastr.success('Note deleted successfully!');
 });

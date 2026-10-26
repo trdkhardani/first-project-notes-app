@@ -1,4 +1,5 @@
-import notesData from "../../data/notes.js";
+import $ from 'jquery';
+import toastr from 'toastr';
 import { createNewNote } from '../api/notes-api.js';
 import customEvents from "../custom-events.js";
 
@@ -90,6 +91,7 @@ class NoteForm extends HTMLElement {
     const noteTitle = document.getElementById("note-title");
     const noteBody = document.getElementById("note-body");
 
+    toastr.info('Saving note...');
     const createNote = await createNewNote(noteTitle.value, noteBody.value);
     console.log(createNote);
 

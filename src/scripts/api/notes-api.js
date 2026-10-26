@@ -4,6 +4,9 @@
 //   }
 // }
 
+import $ from 'jquery';
+import toastr from 'toastr';
+
 const apiBaseUrl = "https://notes-api.dicoding.dev/v2";
 
 export async function getActiveNotes() {
@@ -36,6 +39,8 @@ export async function createNewNote(title, body) {
     return await response.json();
   } catch (err) {
     throw new Error(err);
+  } finally {
+    toastr.clear();
   }
 }
 
@@ -51,5 +56,7 @@ export async function deleteNote(noteId) {
     return await response.json();
   } catch (err) {
     throw new Error(err);
+  } finally {
+    toastr.clear();
   }
 }
