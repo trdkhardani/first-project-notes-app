@@ -14,8 +14,21 @@ import customEvents from './scripts/custom-events.js';
 
 const notesList = document.querySelector('#notes-list');
 
+const loadingElm = document.createElement('p');
+loadingElm.hidden = false;
+loadingElm.innerText = 'Loading...';
+notesList.append(loadingElm);
+
 function renderNotes(noteData) {
-  notesList.innerHTML = '';
+  // delete elements first
+  const noteItems = document.querySelectorAll('note-item');
+  if (noteItems.length > 0) {
+    noteItems.forEach((noteItem) => {
+      noteItem.remove();
+    });
+  }
+
+  // then render the elements again
   noteData.forEach((note) => {
     const noteItem = document.createElement('note-item');
     noteItem.note = note;
@@ -33,6 +46,8 @@ function renderNotes(noteData) {
     const noteItemArticle = noteItem.children[0];
     noteItemArticle.append(deleteButton);
   });
+
+  loadingElm.hidden = true;
 }
 
 const fetchNotesApi = await getActiveNotes();
@@ -41,7 +56,7 @@ renderNotes(fetchNotesApi.data);
 document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, async () => {
   const fetchNotesApi = await getActiveNotes();
   renderNotes(fetchNotesApi.data);
-
+  // loadingElm.hidden = true;
   // toastr.clear();
   toastr.success('Note saved successfully!');
 });

@@ -8,6 +8,7 @@ import $ from 'jquery';
 import toastr from 'toastr';
 
 const apiBaseUrl = "https://notes-api.dicoding.dev/v2";
+// const apiBaseUrl = "http://localhost:5000";
 
 export async function getActiveNotes() {
   const response = await fetch(`${apiBaseUrl}/notes`);
