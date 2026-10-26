@@ -1,4 +1,5 @@
 import notesData from "../../data/notes.js";
+import { createNewNote } from '../api/notes-api.js';
 import customEvents from "../custom-events.js";
 
 class NoteForm extends HTMLElement {
@@ -83,19 +84,14 @@ class NoteForm extends HTMLElement {
     });
   }
 
-  _onFormSubmit(event) {
+  async _onFormSubmit(event) {
     event.preventDefault();
 
     const noteTitle = document.getElementById("note-title");
     const noteBody = document.getElementById("note-body");
 
-    notesData.push({
-      id: `notes-${+new Date()}`,
-      title: noteTitle.value,
-      body: noteBody.value,
-      createdAt: new Date().toISOString(),
-      archived: false,
-    });
+    const createNote = await createNewNote(noteTitle.value, noteBody.value);
+    console.log(createNote);
 
     noteTitle.value = "";
     noteBody.value = "";
