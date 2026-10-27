@@ -3,23 +3,32 @@ import './styles/main.css'
 import $ from 'jquery';
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
-
 import './scripts/components/app-bar.js';
+import './scripts/components/loading-indicator.js';
 import './scripts/components/note-form.js';
 import './scripts/components/note-item.js';
 
-// import notesData from './data/notes.js';
 import { deleteNote, getActiveNotes } from './scripts/api/notes-api.js';
 import customEvents from './scripts/custom-events.js';
 
 const notesList = document.querySelector('#notes-list');
+const loadingElm = document.createElement('loading-indicator');
 
-const loadingElm = document.createElement('p');
-loadingElm.hidden = false;
-loadingElm.innerText = 'Loading...';
 notesList.append(loadingElm);
 
 function renderNotes(noteData) {
+  if (noteData.length === 0) {
+    const emptyNoteIndicator =  document.createElement('p');
+    emptyNoteIndicator.id = 'empty-note-indicator';
+    emptyNoteIndicator.innerText = "No saved notes yet. Let's make one!"
+    notesList.append(emptyNoteIndicator);
+    loadingElm.remove();
+  }
+
+  const emptyNoteIndicator = document.getElementById('empty-note-indicator');
+  if (emptyNoteIndicator && noteData.length > 0) {
+    emptyNoteIndicator.remove();
+  }
   // delete elements first
   const noteItems = document.querySelectorAll('note-item');
   if (noteItems.length > 0) {
@@ -47,7 +56,7 @@ function renderNotes(noteData) {
     noteItemArticle.append(deleteButton);
   });
 
-  loadingElm.hidden = true;
+  loadingElm.remove();
 }
 
 const fetchNotesApi = await getActiveNotes();
@@ -56,14 +65,13 @@ renderNotes(fetchNotesApi.data);
 document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, async () => {
   const fetchNotesApi = await getActiveNotes();
   renderNotes(fetchNotesApi.data);
-  // loadingElm.hidden = true;
-  // toastr.clear();
+
   toastr.success('Note saved successfully!');
 });
 
 document.addEventListener(customEvents.NOTE_DELETE_EVENT, async () => {
   const fetchNotesApi = await getActiveNotes();
   renderNotes(fetchNotesApi.data);
-  // toastr.clear();
+
   toastr.success('Note deleted successfully!');
 });
