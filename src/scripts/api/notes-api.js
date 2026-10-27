@@ -7,8 +7,8 @@
 import $ from 'jquery';
 import toastr from 'toastr';
 
-const apiBaseUrl = "https://notes-api.dicoding.dev/v2";
-// const apiBaseUrl = "http://localhost:5000";
+// const apiBaseUrl = "https://notes-api.dicoding.dev/v2";
+const apiBaseUrl = "http://localhost:5000";
 
 export async function getActiveNotes() {
   const response = await fetch(`${apiBaseUrl}/notes`);
@@ -21,43 +21,35 @@ export async function getActiveNotes() {
 }
 
 export async function createNewNote(title, body) {
-  try {
-    const response = await fetch(`${apiBaseUrl}/notes`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: title,
-        body: body,
-      }),
-    });
+  const response = await fetch(`${apiBaseUrl}/notes`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: title,
+      body: body,
+    }),
+  });
 
-    // if (!response.ok) {
-    //   throw new Error("Error creating note.");
-    // }
-
-    return await response.json();
-  } catch (err) {
-    throw new Error(err);
-  } finally {
-    toastr.clear();
+  if (!response.ok) {
+    throw "Error saving note.";
   }
+
+  return await response.json();
 }
 
 export async function deleteNote(noteId) {
-  try {
-    const response = await fetch(`${apiBaseUrl}/notes/${noteId}`, {
-      method: "DELETE",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const response = await fetch(`${apiBaseUrl}/notes/${noteId}`, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
-    return await response.json();
-  } catch (err) {
-    throw new Error(err);
-  } finally {
-    toastr.clear();
+  if (!response.ok) {
+    throw "Error deleting note."
   }
+
+  return await response.json();
 }

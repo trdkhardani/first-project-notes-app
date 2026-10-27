@@ -1,36 +1,35 @@
-import './styles/main.css'
+import "./styles/main.css";
 
-import $ from 'jquery';
-import toastr from 'toastr';
-import 'toastr/build/toastr.min.css';
-import './scripts/components/app-bar.js';
-import './scripts/components/loading-indicator.js';
-import './scripts/components/note-form.js';
-import './scripts/components/note-item.js';
+import $ from "jquery";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
+import "./scripts/components/app-bar.js";
+import "./scripts/components/loading-indicator.js";
+import "./scripts/components/note-form.js";
+import "./scripts/components/note-item.js";
 
-import { deleteNote, getActiveNotes } from './scripts/api/notes-api.js';
-import customEvents from './scripts/custom-events.js';
+import { getActiveNotes } from "./scripts/api/notes-api.js";
+import customEvents from "./scripts/custom-events.js";
+import deleteNoteButton from './scripts/ui-elements/delete-button.js';
 
-const notesList = document.querySelector('#notes-list');
-const loadingElm = document.createElement('loading-indicator');
+const notesList = document.querySelector("#notes-list");
+const loadingElm = document.createElement("loading-indicator");
 
 notesList.append(loadingElm);
 
 function renderNotes(noteData) {
+  const emptyNoteIndicator = document.getElementById("empty-note-indicator");
+
   if (noteData.length === 0) {
-    const emptyNoteIndicator =  document.createElement('p');
-    emptyNoteIndicator.id = 'empty-note-indicator';
-    emptyNoteIndicator.innerText = "No saved notes yet. Let's make one!"
-    notesList.append(emptyNoteIndicator);
+    emptyNoteIndicator.hidden = false;
     loadingElm.remove();
   }
 
-  const emptyNoteIndicator = document.getElementById('empty-note-indicator');
   if (emptyNoteIndicator && noteData.length > 0) {
-    emptyNoteIndicator.remove();
+    emptyNoteIndicator.hidden = true;
   }
   // delete elements first
-  const noteItems = document.querySelectorAll('note-item');
+  const noteItems = document.querySelectorAll("note-item");
   if (noteItems.length > 0) {
     noteItems.forEach((noteItem) => {
       noteItem.remove();
@@ -39,19 +38,12 @@ function renderNotes(noteData) {
 
   // then render the elements again
   noteData.forEach((note) => {
-    const noteItem = document.createElement('note-item');
+    const noteItem = document.createElement("note-item");
     noteItem.note = note;
     notesList.append(noteItem);
-    console.log(noteItem);
-    const deleteButton = document.createElement('button');
-    deleteButton.type = 'button';
-    deleteButton.className = 'delete-note-btn';
-    deleteButton.innerText = 'Delete'
-    deleteButton.addEventListener('click', async () => {
-      toastr.info('Deleting note...')
-      await deleteNote(note.id);
-      document.dispatchEvent(new CustomEvent(customEvents.NOTE_DELETE_EVENT));
-    });
+
+    const deleteButton = deleteNoteButton(noteItem, note.id);
+
     const noteItemArticle = noteItem.children[0];
     noteItemArticle.append(deleteButton);
   });
@@ -59,19 +51,28 @@ function renderNotes(noteData) {
   loadingElm.remove();
 }
 
-const fetchNotesApi = await getActiveNotes();
-renderNotes(fetchNotesApi.data);
-
-document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, async () => {
+try {
   const fetchNotesApi = await getActiveNotes();
   renderNotes(fetchNotesApi.data);
+} catch (err) {
+  loadingElm.remove();
+  toastr.clear();
+  toastr.error(`Error fetching notes: ${err}`);
+}
 
-  toastr.success('Note saved successfully!');
+document.addEventListener(customEvents.NOTE_SUBMIT_EVENT, () => {
+  const emptyNoteIndicator = document.getElementById("empty-note-indicator");
+  emptyNoteIndicator.hidden = true;
+
+  toastr.clear();
+  toastr.success("Note saved successfully!");
 });
 
-document.addEventListener(customEvents.NOTE_DELETE_EVENT, async () => {
-  const fetchNotesApi = await getActiveNotes();
-  renderNotes(fetchNotesApi.data);
+document.addEventListener(customEvents.NOTE_DELETE_EVENT, () => {
+  const emptyNoteIndicator = document.getElementById("empty-note-indicator");
+  if (document.querySelectorAll("note-item").length === 0)
+    emptyNoteIndicator.hidden = false;
 
-  toastr.success('Note deleted successfully!');
+  toastr.clear();
+  toastr.success("Note deleted successfully!");
 });

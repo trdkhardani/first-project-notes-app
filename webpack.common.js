@@ -29,4 +29,13 @@ module.exports = {
       filename: "index.html",
     }),
   ],
+  devServer: {
+    client: {
+      overlay: {
+        errors: false,
+        warnings: false,
+        runtimeErrors: true,
+      },
+    },
+  },
 };

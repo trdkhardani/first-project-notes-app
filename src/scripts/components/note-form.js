@@ -1,7 +1,8 @@
-import $ from 'jquery';
-import toastr from 'toastr';
-import { createNewNote } from '../api/notes-api.js';
+import $ from "jquery";
+import toastr from "toastr";
+import { createNewNote } from "../api/notes-api.js";
 import customEvents from "../custom-events.js";
+import deleteNoteButton from '../ui-elements/delete-button.js';
 
 class NoteForm extends HTMLElement {
   constructor() {
@@ -11,7 +12,6 @@ class NoteForm extends HTMLElement {
   connectedCallback() {
     this.render();
     this._onValidation();
-    this._onSubmission();
     this.addEventListener("submit", (event) => this._onFormSubmit(event));
   }
 
@@ -23,7 +23,6 @@ class NoteForm extends HTMLElement {
           <div class="field-group"><label for="note-title">Title</label><input id="note-title" name="title" type="text" placeholder="Your title here..." required minlength="3" /><small class="field-message" id="title-message"></small></div>
           <div class="field-group"><label for="note-body">Note</label><textarea id="note-body" name="body" rows="5" placeholder="Your note here..." required minlength="10"></textarea><small class="field-message" id="body-message"></small></div>
           <button type="submit">Save note <span aria-hidden="true">→</span></button>
-          <p id="submission-alert" style="color: var(--success);" hidden>Note successfully added!</p>
         </form>
       </section>`;
   }
@@ -70,35 +69,33 @@ class NoteForm extends HTMLElement {
     return;
   }
 
-  _onSubmission() {
-    const noteTitle = document.getElementById("note-title");
-    const noteBody = document.getElementById("note-body");
-
-    const submissionAlert = document.getElementById("submission-alert");
-
-    noteTitle.addEventListener("focus", () => {
-      submissionAlert.hidden = true;
-    });
-
-    noteBody.addEventListener("focus", () => {
-      submissionAlert.hidden = true;
-    });
-  }
-
   async _onFormSubmit(event) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const noteTitle = document.getElementById("note-title");
-    const noteBody = document.getElementById("note-body");
+      const noteTitle = document.getElementById("note-title");
+      const noteBody = document.getElementById("note-body");
 
-    toastr.info('Saving note...');
-    const createNote = await createNewNote(noteTitle.value, noteBody.value);
-    console.log(createNote);
+      toastr.info("Saving note...");
+      const newNote = await createNewNote(noteTitle.value, noteBody.value);
 
-    noteTitle.value = "";
-    noteBody.value = "";
+      const notesList = document.querySelector("#notes-list");
+      const noteItem = document.createElement('note-item');
+      noteItem.note = newNote.data;
+      notesList.append(noteItem);
 
-    document.dispatchEvent(new CustomEvent(customEvents.NOTE_SUBMIT_EVENT));
+      const deleteButton = deleteNoteButton(noteItem, newNote.data.id);
+      const noteItemArticle = noteItem.children[0];
+      noteItemArticle.append(deleteButton);
+
+      noteTitle.value = "";
+      noteBody.value = "";
+
+      document.dispatchEvent(new CustomEvent(customEvents.NOTE_SUBMIT_EVENT));
+    } catch (err) {
+      toastr.clear();
+      toastr.error(err);
+    }
   }
 }
 
