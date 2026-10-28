@@ -20,7 +20,14 @@
       <section class="notes-section" aria-labelledby="notes-heading">
         <div class="section-heading">
           <div>
-            <h2 id="notes-heading">Notes</h2>
+            <h2 id="notes-heading">Active Notes</h2>
+          </div>
+          <div>
+            <label for="status">Status</label>
+            <select name="status-dropdown" id="status-dropdown">
+              <option value="active" selected>Active</option>
+              <option value="archived">Archived</option>
+            </select>
           </div>
         </div>
         <div id="notes-list" class="notes-grid" aria-live="polite">

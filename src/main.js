@@ -8,10 +8,10 @@ import "./scripts/components/loading-indicator.js";
 import "./scripts/components/note-form.js";
 import "./scripts/components/note-item.js";
 
-import { getActiveNotes } from "./scripts/api/notes-api.js";
+import { getActiveNotes, getArchivedNotes } from "./scripts/api/notes-api.js";
 import customEvents from "./scripts/custom-events.js";
-import deleteNoteButton from './scripts/ui-elements/delete-button.js';
-import archiveToggleNoteButton from './scripts/ui-elements/archive-toggle-button.js';
+import deleteNoteButton from "./scripts/ui-elements/delete-button.js";
+import archiveToggleNoteButton from "./scripts/ui-elements/archive-toggle-button.js";
 
 const notesList = document.querySelector("#notes-list");
 const loadingElm = document.createElement("loading-indicator");
@@ -29,26 +29,30 @@ function renderNotes(noteData) {
   if (emptyNoteIndicator && noteData.length > 0) {
     emptyNoteIndicator.hidden = true;
   }
-  // // delete elements first
-  // const noteItems = document.querySelectorAll("note-item");
-  // if (noteItems.length > 0) {
-  //   noteItems.forEach((noteItem) => {
-  //     noteItem.remove();
-  //   });
-  // }
 
-  // // then render the elements again
+  // delete the current note items (active/archived) first
+  const noteItems = document.querySelectorAll("note-item");
+  if (noteItems.length > 0) {
+    noteItems.forEach((noteItem) => {
+      noteItem.remove();
+    });
+  }
+
   noteData.forEach((note) => {
     const noteItem = document.createElement("note-item");
     noteItem.note = note;
     notesList.append(noteItem);
 
     const deleteButton = deleteNoteButton(noteItem, note.id);
-    const archiveToggleButton = archiveToggleNoteButton(noteItem, note.id, note.archived);
+    const archiveToggleButton = archiveToggleNoteButton(
+      noteItem,
+      note.id,
+      note.archived,
+    );
 
     const noteItemArticle = noteItem.children[0];
-    const noteActionButtons = document.createElement('div');
-    noteActionButtons.className = 'note-action-button-group';
+    const noteActionButtons = document.createElement("div");
+    noteActionButtons.className = "note-action-button-group";
     noteActionButtons.append(deleteButton, archiveToggleButton);
     noteItemArticle.append(noteActionButtons);
   });
@@ -56,9 +60,35 @@ function renderNotes(noteData) {
   loadingElm.remove();
 }
 
+const statusDropdown = document.getElementById("status-dropdown");
+statusDropdown.addEventListener("change", async (event) => {
+  try {
+    const selectedOption = event.target.value;
+    console.log("selectedOption");
+    console.log(selectedOption);
+
+    const notesHeading = document.getElementById("notes-heading");
+
+    notesList.append(loadingElm);
+    if (selectedOption === "active") {
+      const fetchActiveNotes = await getActiveNotes();
+      renderNotes(fetchActiveNotes.data);
+      notesHeading.innerText = "Active Notes";
+    } else {
+      const fetchArchivedNotes = await getArchivedNotes();
+      renderNotes(fetchArchivedNotes.data);
+      notesHeading.innerText = "Archived Notes";
+    }
+  } catch (err) {
+    toastr.error(`Error fetching notes: ${err}`);
+  } finally {
+    loadingElm.remove();
+  }
+});
+
 try {
-  const fetchNotesApi = await getActiveNotes();
-  renderNotes(fetchNotesApi.data);
+  const fetchActiveNotes = await getActiveNotes();
+  renderNotes(fetchActiveNotes.data);
 } catch (err) {
   loadingElm.remove();
   toastr.clear();
