@@ -2,8 +2,8 @@ import $ from "jquery";
 import toastr from "toastr";
 import { createNewNote } from "../api/notes-api.js";
 import customEvents from "../custom-events.js";
-import deleteNoteButton from "../ui-elements/delete-button.js";
-import archiveToggleNoteButton from "../ui-elements/archive-toggle-button.js";
+import "./buttons/archive-toggle-note-button.js";
+import "./buttons/delete-note-button.js";
 
 class NoteForm extends HTMLElement {
   constructor() {
@@ -85,12 +85,11 @@ class NoteForm extends HTMLElement {
       noteItem.note = newNote.data;
       notesList.append(noteItem);
 
-      const deleteButton = deleteNoteButton(noteItem, newNote.data.id);
-      const archiveToggleButton = archiveToggleNoteButton(
-        noteItem,
-        newNote.data.id,
-        newNote.data.archived,
-      );
+      const deleteButton = document.createElement("delete-note-button");
+      deleteButton.setAttribute("note-id", newNote.data.id);
+      const archiveToggleButton = document.createElement("archive-toggle-note-button");
+      archiveToggleButton.setAttribute("note-id", newNote.data.id);
+      archiveToggleButton.setAttribute("archived", newNote.data.archived);
 
       const noteItemArticle = noteItem.children[0];
       const noteActionButtons = document.createElement("div");

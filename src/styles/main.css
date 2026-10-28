@@ -295,6 +295,10 @@ loading-indicator {
   font-size: 2.1rem;
 }
 
+status-dropdown {
+  display: block;
+}
+
 .status-filter {
   display: grid;
   gap: 0.4rem;
@@ -454,24 +458,24 @@ note-item {
   padding: 8px;
 }
 
-#delete-note-btn {
+.delete-note-btn {
   color: #FCA5A5;
   background: #3A202D;
   border: 1px solid #71333F;
 }
 
-#delete-note-btn:hover {
+.delete-note-btn:hover {
   color: #FFFFFF;
   background: var(--danger-dark);
 }
 
-#archive-toggle-note-btn {
+.archive-toggle-note-btn {
   color: #FCD34D;
   background: #392F1B;
   border: 1px solid #70531D;
 }
 
-#archive-toggle-note-btn:hover {
+.archive-toggle-note-btn:hover {
     color: #090B1A;
   background: var(--warning);
 }
