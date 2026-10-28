@@ -317,8 +317,16 @@ note-item {
   background: var(--surface);
   box-shadow: var(--shadow);
 
+  transition: transform 0.5s ease-in-out;
+
   display: grid;
   grid-template-rows: repeat(4, 0.5fr);
+  align-content: space-evenly;
+}
+
+.note-card:hover {
+  transition: transform 0.5s ease-in-out;
+  transform: scale(1.1);
 }
 
 .note-card.is-archived {
@@ -339,15 +347,22 @@ note-item {
 }
 
 .note-card h3 {
-  margin: 1.5rem 0 0.65rem;
+  margin: 1rem 0 0.65rem;
+  border: 1px solid red;
   font-size: 1.25rem;
 }
 
 .note-card p {
-  margin: 0;
+  margin-block: 8px;
+  border: 1px solid red;
   color: var(--muted);
   white-space: pre-line;
 }
+
+/* .note-card h3, .note-card p {
+  overflow-wrap: anywhere;
+  word-break: normal;
+} */
 
 .note-action-button-group {
   display: flex;
