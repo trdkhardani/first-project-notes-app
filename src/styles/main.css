@@ -1,6 +1,6 @@
 :root {
-  --font-body: "Inter", sans-serif;
-  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
 
   --ink: #f1f3ff;
   --muted: #a0a8ca;
@@ -229,7 +229,7 @@ loading-indicator {
 .loading-orbit::before,
 .loading-orbit::after {
   position: absolute;
-  content: "";
+  content: '';
   border-radius: 50%;
   pointer-events: none;
 }

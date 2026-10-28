@@ -1,9 +1,9 @@
-import $ from "jquery";
-import toastr from "toastr";
-import { createNewNote } from "../api/notes-api.js";
-import customEvents from "../custom-events.js";
-import "./buttons/archive-toggle-note-button.js";
-import "./buttons/delete-note-button.js";
+import $ from 'jquery';
+import toastr from 'toastr';
+import { createNewNote } from '../api/notes-api.js';
+import customEvents from '../custom-events.js';
+import './buttons/archive-toggle-note-button.js';
+import './buttons/delete-note-button.js';
 
 class NoteForm extends HTMLElement {
   constructor() {
@@ -13,7 +13,7 @@ class NoteForm extends HTMLElement {
   connectedCallback() {
     this.render();
     this._onValidation();
-    this.addEventListener("submit", (event) => this._onFormSubmit(event));
+    this.addEventListener('submit', (event) => this._onFormSubmit(event));
   }
 
   render() {
@@ -29,41 +29,41 @@ class NoteForm extends HTMLElement {
   }
 
   _onValidation() {
-    const noteTitle = document.getElementById("note-title");
-    const noteBody = document.getElementById("note-body");
-    noteTitle.addEventListener("blur", (event) => {
+    const noteTitle = document.getElementById('note-title');
+    const noteBody = document.getElementById('note-body');
+    noteTitle.addEventListener('blur', (event) => {
       const isValid = event.target.validity.valid;
       const validationMsg = event.target.validationMessage;
 
       const noteTitleValidationMsgField =
-        document.getElementById("title-message");
+        document.getElementById('title-message');
       if (!isValid && validationMsg) {
         if (event.target.validity.valueMissing)
-          noteTitleValidationMsgField.innerText = "Title must be filled.";
+          noteTitleValidationMsgField.innerText = 'Title must be filled.';
 
         if (event.target.validity.tooShort)
           noteTitleValidationMsgField.innerText =
-            "Title is 3 characters minimum.";
+            'Title is 3 characters minimum.';
       } else {
-        noteTitleValidationMsgField.innerText = "";
+        noteTitleValidationMsgField.innerText = '';
       }
     });
 
-    noteBody.addEventListener("blur", (event) => {
+    noteBody.addEventListener('blur', (event) => {
       const isValid = event.target.validity.valid;
       const validationMsg = event.target.validationMessage;
 
       const noteBodyValidationMsgField =
-        document.getElementById("body-message");
+        document.getElementById('body-message');
       if (!isValid && validationMsg) {
         if (event.target.validity.valueMissing)
-          noteBodyValidationMsgField.innerText = "Note must be filled.";
+          noteBodyValidationMsgField.innerText = 'Note must be filled.';
 
         if (event.target.validity.tooShort)
           noteBodyValidationMsgField.innerText =
-            "Note is 10 characters minimum.";
+            'Note is 10 characters minimum.';
       } else {
-        noteBodyValidationMsgField.innerText = "";
+        noteBodyValidationMsgField.innerText = '';
       }
     });
 
@@ -74,33 +74,33 @@ class NoteForm extends HTMLElement {
     try {
       event.preventDefault();
 
-      const noteTitle = document.getElementById("note-title");
-      const noteBody = document.getElementById("note-body");
+      const noteTitle = document.getElementById('note-title');
+      const noteBody = document.getElementById('note-body');
 
-      toastr.info("Saving note...");
+      toastr.info('Saving note...');
       const newNote = await createNewNote(noteTitle.value, noteBody.value);
 
-      const notesList = document.querySelector("#notes-list");
-      const noteItem = document.createElement("note-item");
+      const notesList = document.querySelector('#notes-list');
+      const noteItem = document.createElement('note-item');
       noteItem.note = newNote.data;
       notesList.append(noteItem);
 
-      const deleteButton = document.createElement("delete-note-button");
-      deleteButton.setAttribute("note-id", newNote.data.id);
+      const deleteButton = document.createElement('delete-note-button');
+      deleteButton.setAttribute('note-id', newNote.data.id);
       const archiveToggleButton = document.createElement(
-        "archive-toggle-note-button",
+        'archive-toggle-note-button'
       );
-      archiveToggleButton.setAttribute("note-id", newNote.data.id);
-      archiveToggleButton.setAttribute("archived", newNote.data.archived);
+      archiveToggleButton.setAttribute('note-id', newNote.data.id);
+      archiveToggleButton.setAttribute('archived', newNote.data.archived);
 
       const noteItemArticle = noteItem.children[0];
-      const noteActionButtons = document.createElement("div");
-      noteActionButtons.className = "note-action-button-group";
+      const noteActionButtons = document.createElement('div');
+      noteActionButtons.className = 'note-action-button-group';
       noteActionButtons.append(deleteButton, archiveToggleButton);
       noteItemArticle.append(noteActionButtons);
 
-      noteTitle.value = "";
-      noteBody.value = "";
+      noteTitle.value = '';
+      noteBody.value = '';
 
       document.dispatchEvent(new CustomEvent(customEvents.NOTE_SUBMIT_EVENT));
     } catch (err) {
@@ -110,4 +110,4 @@ class NoteForm extends HTMLElement {
   }
 }
 
-customElements.define("note-form", NoteForm);
+customElements.define('note-form', NoteForm);

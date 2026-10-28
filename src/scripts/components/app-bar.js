@@ -2,7 +2,7 @@ class AppBar extends HTMLElement {
   constructor() {
     super();
 
-    this._navMenus = this.getAttribute("nav-menus") || "";
+    this._navMenus = this.getAttribute('nav-menus') || '';
   }
 
   connectedCallback() {
@@ -10,7 +10,7 @@ class AppBar extends HTMLElement {
   }
 
   render() {
-    const splittedNavMenus = this._navMenus.split(",");
+    const splittedNavMenus = this._navMenus.split(',');
     this.innerHTML = `
     <header class="app-bar">
       <div id="brand">
@@ -28,4 +28,4 @@ class AppBar extends HTMLElement {
     </header>`;
   }
 }
-customElements.define("app-bar", AppBar);
+customElements.define('app-bar', AppBar);

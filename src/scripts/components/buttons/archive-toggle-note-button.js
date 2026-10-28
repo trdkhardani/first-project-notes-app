@@ -1,6 +1,6 @@
-import toastr from "toastr";
-import customEvents from "../../custom-events.js";
-import { archiveNote, unarchiveNote } from "../../api/notes-api.js";
+import toastr from 'toastr';
+import customEvents from '../../custom-events.js';
+import { archiveNote, unarchiveNote } from '../../api/notes-api.js';
 
 class ArchiveToggleNoteButton extends HTMLElement {
   connectedCallback() {
@@ -8,29 +8,29 @@ class ArchiveToggleNoteButton extends HTMLElement {
   }
 
   render() {
-    const isArchived = this.getAttribute("archived") === "true";
-    this.innerHTML = `<button type="button" class="note-action-btn archive-toggle-note-btn">${isArchived ? "Unarchive" : "Archive"}</button>`;
-    this.querySelector("button").addEventListener("click", () =>
-      this.toggleArchive(),
+    const isArchived = this.getAttribute('archived') === 'true';
+    this.innerHTML = `<button type="button" class="note-action-btn archive-toggle-note-btn">${isArchived ? 'Unarchive' : 'Archive'}</button>`;
+    this.querySelector('button').addEventListener('click', () =>
+      this.toggleArchive()
     );
   }
 
   async toggleArchive() {
-    const isArchived = this.getAttribute("archived") === "true";
+    const isArchived = this.getAttribute('archived') === 'true';
 
     try {
-      toastr.info(`${isArchived ? "Unarchiving" : "Archiving"} note...`);
+      toastr.info(`${isArchived ? 'Unarchiving' : 'Archiving'} note...`);
       isArchived
-        ? await unarchiveNote(this.getAttribute("note-id"))
-        : await archiveNote(this.getAttribute("note-id"));
+        ? await unarchiveNote(this.getAttribute('note-id'))
+        : await archiveNote(this.getAttribute('note-id'));
 
-      this.closest("note-item").remove();
+      this.closest('note-item').remove();
       document.dispatchEvent(
         new CustomEvent(
           isArchived
             ? customEvents.NOTE_UNARCHIVE_EVENT
-            : customEvents.NOTE_ARCHIVE_EVENT,
-        ),
+            : customEvents.NOTE_ARCHIVE_EVENT
+        )
       );
     } catch (err) {
       toastr.clear();
@@ -39,4 +39,4 @@ class ArchiveToggleNoteButton extends HTMLElement {
   }
 }
 
-customElements.define("archive-toggle-note-button", ArchiveToggleNoteButton);
+customElements.define('archive-toggle-note-button', ArchiveToggleNoteButton);
