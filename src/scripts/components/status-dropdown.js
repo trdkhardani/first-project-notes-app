@@ -23,4 +23,4 @@ class StatusDropdown extends HTMLElement {
   }
 }
 
-customElements.define('status-dropdown', StatusDropdown);
+customElements.define("status-dropdown", StatusDropdown);

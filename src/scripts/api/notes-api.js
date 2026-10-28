@@ -1,5 +1,5 @@
-// const apiBaseUrl = "https://notes-api.dicoding.dev/v2";
-const apiBaseUrl = "http://localhost:5000";
+const apiBaseUrl = "https://notes-api.dicoding.dev/v2";
+// const apiBaseUrl = "http://localhost:5000";
 
 export async function getActiveNotes() {
   const response = await fetch(`${apiBaseUrl}/notes`);
@@ -25,7 +25,7 @@ export async function archiveNote(noteId) {
   const response = await fetch(`${apiBaseUrl}/notes/${noteId}/archive`, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
@@ -40,7 +40,7 @@ export async function unarchiveNote(noteId) {
   const response = await fetch(`${apiBaseUrl}/notes/${noteId}/unarchive`, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
@@ -55,7 +55,7 @@ export async function createNewNote(title, body) {
   const response = await fetch(`${apiBaseUrl}/notes`, {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       title: title,
@@ -74,12 +74,12 @@ export async function deleteNote(noteId) {
   const response = await fetch(`${apiBaseUrl}/notes/${noteId}`, {
     method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   if (!response.ok) {
-    throw "Error deleting note."
+    throw "Error deleting note.";
   }
 
   return await response.json();

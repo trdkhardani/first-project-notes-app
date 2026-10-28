@@ -87,7 +87,9 @@ class NoteForm extends HTMLElement {
 
       const deleteButton = document.createElement("delete-note-button");
       deleteButton.setAttribute("note-id", newNote.data.id);
-      const archiveToggleButton = document.createElement("archive-toggle-note-button");
+      const archiveToggleButton = document.createElement(
+        "archive-toggle-note-button",
+      );
       archiveToggleButton.setAttribute("note-id", newNote.data.id);
       archiveToggleButton.setAttribute("archived", newNote.data.archived);
 

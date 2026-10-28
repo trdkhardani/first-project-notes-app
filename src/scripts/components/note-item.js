@@ -1,5 +1,3 @@
-const { deleteNote } = require('../api/notes-api');
-
 class NoteItem extends HTMLElement {
   constructor() {
     super();
@@ -8,7 +6,6 @@ class NoteItem extends HTMLElement {
   set note(note) {
     this._note = note;
     this.render();
-    this._onDeleteNote();
   }
 
   render() {
@@ -22,10 +19,6 @@ class NoteItem extends HTMLElement {
         })
       : "No date set";
 
-    const deleteNoteAction = async () => {
-      await deleteNote(id)
-    }
-
     this.innerHTML = `
       <article class="note-card ${archived ? "is-archived" : ""}">
         <div class="note-card__meta">
@@ -36,10 +29,6 @@ class NoteItem extends HTMLElement {
         <p>${body}</p>
 
       </article>`;
-  }
-
-  _onDeleteNote() {
-    
   }
 }
 customElements.define("note-item", NoteItem);

@@ -46,7 +46,9 @@ function renderNotes(noteData) {
 
     const deleteButton = document.createElement("delete-note-button");
     deleteButton.setAttribute("note-id", note.id);
-    const archiveToggleButton = document.createElement("archive-toggle-note-button");
+    const archiveToggleButton = document.createElement(
+      "archive-toggle-note-button",
+    );
     archiveToggleButton.setAttribute("note-id", note.id);
     archiveToggleButton.setAttribute("archived", note.archived);
 

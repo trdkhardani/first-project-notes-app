@@ -13,13 +13,13 @@
   --lavender: #171d3b;
   --success: #5de4ff;
 
-    /* Danger */
-  --danger: #F87171;
-  --danger-dark: #DC4545;
+  /* Danger */
+  --danger: #f87171;
+  --danger-dark: #dc4545;
 
   /* Warning */
-  --warning: #FBBF24;
-  --warning-dark: #D99A12;
+  --warning: #fbbf24;
+  --warning-dark: #d99a12;
 
   --shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
 }
@@ -319,14 +319,25 @@ status-dropdown {
   align-items: center;
   border: 1px solid var(--line);
   border-radius: 0.75rem;
-  background: linear-gradient(135deg, rgba(23, 29, 59, 0.96), rgba(20, 24, 50, 0.96));
-  box-shadow: inset 0 1px 0 rgba(241, 243, 255, 0.05), 0 0.6rem 1.6rem rgba(0, 0, 0, 0.16);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  background: linear-gradient(
+    135deg,
+    rgba(23, 29, 59, 0.96),
+    rgba(20, 24, 50, 0.96)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(241, 243, 255, 0.05),
+    0 0.6rem 1.6rem rgba(0, 0, 0, 0.16);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .status-filter__control:focus-within {
   border-color: var(--success);
-  box-shadow: inset 0 1px 0 rgba(241, 243, 255, 0.08), 0 0 0 3px rgba(93, 228, 255, 0.14), 0 0.6rem 1.6rem rgba(0, 0, 0, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(241, 243, 255, 0.08),
+    0 0 0 3px rgba(93, 228, 255, 0.14),
+    0 0.6rem 1.6rem rgba(0, 0, 0, 0.16);
 }
 
 .status-filter select {
@@ -459,24 +470,24 @@ note-item {
 }
 
 .delete-note-btn {
-  color: #FCA5A5;
-  background: #3A202D;
-  border: 1px solid #71333F;
+  color: #fca5a5;
+  background: #3a202d;
+  border: 1px solid #71333f;
 }
 
 .delete-note-btn:hover {
-  color: #FFFFFF;
+  color: #ffffff;
   background: var(--danger-dark);
 }
 
 .archive-toggle-note-btn {
-  color: #FCD34D;
-  background: #392F1B;
-  border: 1px solid #70531D;
+  color: #fcd34d;
+  background: #392f1b;
+  border: 1px solid #70531d;
 }
 
 .archive-toggle-note-btn:hover {
-    color: #090B1A;
+  color: #090b1a;
   background: var(--warning);
 }
 
