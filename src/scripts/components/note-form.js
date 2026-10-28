@@ -3,6 +3,7 @@ import toastr from "toastr";
 import { createNewNote } from "../api/notes-api.js";
 import customEvents from "../custom-events.js";
 import deleteNoteButton from '../ui-elements/delete-button.js';
+import archiveToggleNoteButton from '../ui-elements/archive-toggle-button.js';
 
 class NoteForm extends HTMLElement {
   constructor() {
@@ -85,8 +86,9 @@ class NoteForm extends HTMLElement {
       notesList.append(noteItem);
 
       const deleteButton = deleteNoteButton(noteItem, newNote.data.id);
+      const archiveToggleButton = archiveToggleNoteButton(noteItem, newNote.data.id, newNote.data.archived);
       const noteItemArticle = noteItem.children[0];
-      noteItemArticle.append(deleteButton);
+      noteItemArticle.append(deleteButton, archiveToggleButton);
 
       noteTitle.value = "";
       noteBody.value = "";
