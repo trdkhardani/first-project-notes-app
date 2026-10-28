@@ -47,7 +47,10 @@ function renderNotes(noteData) {
     const archiveToggleButton = archiveToggleNoteButton(noteItem, note.id, note.archived);
 
     const noteItemArticle = noteItem.children[0];
-    noteItemArticle.append(deleteButton, archiveToggleButton);
+    const noteActionButtons = document.createElement('div');
+    noteActionButtons.className = 'note-action-button-group';
+    noteActionButtons.append(deleteButton, archiveToggleButton);
+    noteItemArticle.append(noteActionButtons);
   });
 
   loadingElm.remove();

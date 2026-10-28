@@ -6,7 +6,8 @@ import { deleteNote } from '../api/notes-api';
 function deleteNoteButton(noteItem, noteId) {
   const deleteButton = document.createElement("button");
   deleteButton.type = "button";
-  deleteButton.className = "delete-note-btn";
+  deleteButton.id = "delete-note-btn"
+  deleteButton.className = "note-action-btn";
   deleteButton.innerText = "Delete";
   deleteButton.addEventListener("click", async () => {
     try {

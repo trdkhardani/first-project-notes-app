@@ -2,8 +2,8 @@ import $ from "jquery";
 import toastr from "toastr";
 import { createNewNote } from "../api/notes-api.js";
 import customEvents from "../custom-events.js";
-import deleteNoteButton from '../ui-elements/delete-button.js';
-import archiveToggleNoteButton from '../ui-elements/archive-toggle-button.js';
+import deleteNoteButton from "../ui-elements/delete-button.js";
+import archiveToggleNoteButton from "../ui-elements/archive-toggle-button.js";
 
 class NoteForm extends HTMLElement {
   constructor() {
@@ -81,14 +81,22 @@ class NoteForm extends HTMLElement {
       const newNote = await createNewNote(noteTitle.value, noteBody.value);
 
       const notesList = document.querySelector("#notes-list");
-      const noteItem = document.createElement('note-item');
+      const noteItem = document.createElement("note-item");
       noteItem.note = newNote.data;
       notesList.append(noteItem);
 
       const deleteButton = deleteNoteButton(noteItem, newNote.data.id);
-      const archiveToggleButton = archiveToggleNoteButton(noteItem, newNote.data.id, newNote.data.archived);
+      const archiveToggleButton = archiveToggleNoteButton(
+        noteItem,
+        newNote.data.id,
+        newNote.data.archived,
+      );
+
       const noteItemArticle = noteItem.children[0];
-      noteItemArticle.append(deleteButton, archiveToggleButton);
+      const noteActionButtons = document.createElement("div");
+      noteActionButtons.className = "note-action-button-group";
+      noteActionButtons.append(deleteButton, archiveToggleButton);
+      noteItemArticle.append(noteActionButtons);
 
       noteTitle.value = "";
       noteBody.value = "";

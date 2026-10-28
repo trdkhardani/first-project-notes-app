@@ -6,7 +6,8 @@ import { archiveNote, unarchiveNote } from '../api/notes-api';
 function archiveToggleNoteButton(noteItem, noteId, isNoteArchived) {
   const archiveToggleButton = document.createElement("button");
   archiveToggleButton.type = "button";
-  archiveToggleButton.className = "archive-toggle-note-btn";
+  archiveToggleButton.id = "archive-toggle-note-btn"
+  archiveToggleButton.className = "note-action-btn";
   archiveToggleButton.innerText = isNoteArchived ? "Unarchive" : "Archive";
   archiveToggleButton.addEventListener("click", async () => {
     try {
